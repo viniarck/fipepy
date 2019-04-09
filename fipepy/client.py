@@ -135,13 +135,13 @@ class FipepyAPI(FipeAPI):
         self._port = os.environ.get("FIPEPY_PORT") or port
         self._endpoint = "fipe/v1/"
         self._url = f"http://{self._host}:{self._port}/{self._endpoint}"
-        self.user = os.environ.get("FIPEPY_USER", "AnonymousUser")
-        self.password = os.environ.get("FIPEPY_PASSWORD", "")
+        self._user = os.environ.get("FIPEPY_USER", "AnonymousUser")
+        self._password = os.environ.get("FIPEPY_PASSWORD", "")
 
     def update_makers(self, endpoint="makers/") -> None:
         """Update all makers through the REST API."""
         session = requests.Session()
-        session.auth = (self.user, self.password)
+        session.auth = (self._user, self._password)
         for maker in self.fetch_makers():
             named_maker = Maker(name=maker)
             r = session.put(
@@ -159,7 +159,7 @@ class FipepyAPI(FipeAPI):
                 self.fetch_makers()
             makers.extend(self._makers.keys())
         session = requests.Session()
-        session.auth = (self.user, self.password)
+        session.auth = (self._user, self._password)
         for maker in makers:
             cars = self.fetch_cars(maker)
             for car in cars:
