@@ -6,7 +6,7 @@ schema_view = get_swagger_view(title='Fipepy API')
 
 urlpatterns = [
     # swagger docs
-    path('', schema_view),
+    path('docs/', views.SwaggerSchemaView.as_view()),
     # makers/
     path("makers/", views.MakersList.as_view()),
     # makers/<maker_name>

@@ -8,6 +8,10 @@ import json
 from django.views.generic import TemplateView
 from pygal.style import BlueStyle
 from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import AllowAny
+from rest_framework.schemas import SchemaGenerator
+from rest_framework_swagger import renderers
+
 
 from .charts import PriceChart
 
@@ -148,3 +152,14 @@ class IndexView(TemplateView):
         res = cht.generate()
         context["cht"] = res
         return context
+
+
+class SwaggerSchemaView(APIView):
+    permission_classes = [AllowAny]
+    renderer_classes = [renderers.OpenAPIRenderer, renderers.SwaggerUIRenderer]
+
+    def get(self, request):
+        generator = SchemaGenerator()
+        schema = generator.get_schema(request=request)
+
+        return Response(schema)
