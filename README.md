@@ -12,15 +12,15 @@ This is an API for ["Tabela Fipe"](https://www.fipe.org.br/) to figure out the a
 
 - To list all makers
 
-[http://35.237.184.43:8000/fipe/v1/makers/](http://35.237.184.43:8000/fipe/v1/makers/)
+GET [http://35.237.184.43:8000/fipe/v1/makers/](http://35.237.184.43:8000/fipe/v1/makers/)
 
 - To list all car models of a maker
 
-[http://35.237.184.43:8000/fipe/v1/makers/subaru/cars/](http://35.237.184.43:8000/fipe/v1/makers/subaru/cars/)
+GET [http://35.237.184.43:8000/fipe/v1/makers/subaru/cars/](http://35.237.184.43:8000/fipe/v1/makers/subaru/cars/)
 
 - To draw a chart price of a specific model (you should see a graph similar to this one bellow)
 
-[http://35.237.184.43:8000/fipe/v1/makers/subaru/cars/027071-7/chart](http://35.237.184.43:8000/fipe/v1/makers/subaru/cars/027071-7/chart)
+Open in your browser: [http://35.237.184.43:8000/fipe/v1/makers/subaru/cars/027071-7/chart](http://35.237.184.43:8000/fipe/v1/makers/subaru/cars/027071-7/chart)
 
 ![img](./docs/chart.png)
 
