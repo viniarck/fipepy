@@ -1,0 +1,170 @@
+{
+    "host": "localhost:8000",
+    "info": {
+        "description": "",
+        "title": "",
+        "version": ""
+    },
+    "paths": {
+        "/fipe/v1/docs/": {
+            "get": {
+                "operationId": "docs_list",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "docs"
+                ]
+            }
+        },
+        "/fipe/v1/makers/": {
+            "delete": {
+                "operationId": "makers_delete",
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "makers"
+                ]
+            },
+            "get": {
+                "operationId": "makers_list",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "makers"
+                ]
+            },
+            "put": {
+                "operationId": "makers_update",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "makers"
+                ]
+            }
+        },
+        "/fipe/v1/makers/{maker_name}/cars/": {
+            "delete": {
+                "description": "CarsList View.",
+                "operationId": "makers_cars_delete",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "maker_name",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                },
+                "summary": "CarsList View.",
+                "tags": [
+                    "makers"
+                ]
+            },
+            "get": {
+                "description": "CarsList View.",
+                "operationId": "makers_cars_list",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "maker_name",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "summary": "CarsList View.",
+                "tags": [
+                    "makers"
+                ]
+            },
+            "put": {
+                "description": "CarsList View.",
+                "operationId": "makers_cars_update",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "maker_name",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "summary": "CarsList View.",
+                "tags": [
+                    "makers"
+                ]
+            }
+        },
+        "/fipe/v1/makers/{maker_name}/cars/{fipe_id}": {
+            "get": {
+                "description": "Car Detailed View.",
+                "operationId": "makers_cars_read",
+                "parameters": [
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "maker_name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "",
+                        "in": "path",
+                        "name": "fipe_id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "summary": "Car Detailed View.",
+                "tags": [
+                    "makers"
+                ]
+            }
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "securityDefinitions": {
+        "basic": {
+            "type": "basic"
+        }
+    },
+    "swagger": "2.0"
+}
