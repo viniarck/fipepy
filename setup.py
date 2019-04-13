@@ -20,7 +20,6 @@ setup(
         "fire==0.1.3",
         "requests==2.21.0",
         "django-rest-swagger==2.2.0",
-        "pygal==2.4.0",
         "psycopg2-binary==2.8.1",
     ],
     classifiers=[
