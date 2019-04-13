@@ -13,6 +13,4 @@ urlpatterns = [
     path("makers/<str:maker_name>/cars/", views.CarsList.as_view()),
     # makers/<maker_name>/cars/<fipe_id>
     path("makers/<str:maker_name>/cars/<str:fipe_id>", views.CarDetail.as_view()),
-    # makers/<maker_name>/cars/<fipe_id>/chart
-    path("makers/<str:maker_name>/cars/<str:fipe_id>/chart", views.IndexView.as_view()),
 ]
