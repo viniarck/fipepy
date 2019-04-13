@@ -1,19 +1,14 @@
+import json
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Maker, Car
 from .serializers import MakerSerializer, CarSerializer
 from rest_framework.views import APIView
 from django.core.exceptions import ObjectDoesNotExist
-import json
-from django.views.generic import TemplateView
-from pygal.style import BlueStyle
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import AllowAny
 from rest_framework.schemas import SchemaGenerator
 from rest_framework_swagger import renderers
-
-
-from .charts import PriceChart
 
 
 class MakersList(APIView):
@@ -75,9 +70,20 @@ class CarsList(APIView):
     """CarsList View. """
 
     def get(self, request, maker_name, format=None) -> Response:
+        maker: Maker = None
         try:
             maker = Maker.objects.get(name=maker_name)
+        except ObjectDoesNotExist as e:
+            return Response(
+                json.dumps({"detail": str(e)}), status=status.HTTP_400_BAD_REQUEST
+            )
+        try:
             cars = Car.objects.filter(maker=maker.id).order_by("name")
+            if request.query_params.get("unique"):
+                unique_names = {}
+                for car in cars:
+                    unique_names[car.name] = car
+                cars = list(unique_names.values())
             serializer = CarSerializer(cars, many=True)
             return Response(serializer.data)
         except ObjectDoesNotExist:
@@ -130,28 +136,6 @@ class CarsList(APIView):
             return Response(status=status.HTTP_200_OK)
         except ObjectDoesNotExist as e:
             return Response(f"{str(e)}", status=status.HTTP_400_BAD_REQUEST)
-
-
-class IndexView(TemplateView):
-    template_name = "fipeapp/pygal.html"
-
-    def get_context_data(self, maker_name: str, fipe_id: str, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        cht = PriceChart(
-            maker_name,
-            fipe_id,
-            title="Preco em R$ x Ano",
-            height=800,
-            width=1000,
-            x_title="Ano",
-            y_title="Preço em R$ (BRL)",
-            style=BlueStyle,
-            explicit_size=True,
-            legend_at_bottom=True,
-        )
-        res = cht.generate()
-        context["cht"] = res
-        return context
 
 
 class SwaggerSchemaView(APIView):
