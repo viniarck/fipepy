@@ -1,10 +1,12 @@
 <template>
   <div id="app">
+    <br>
     <div id="maker-select" class="maker-select">
       <h3>Maker:</h3>
       <v-select v-model="makerx" label="name" :options="makers">
       </v-select>
     </div>
+    <br>
     <CarForm v-bind:maker="makerx"/>
   </div>
 </template>
