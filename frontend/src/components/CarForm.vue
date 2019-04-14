@@ -2,18 +2,22 @@
   <div id="app">
     <div id="car-select" class="car-select">
       <h3>Model:</h3>
-      <v-select v-model="modelx" label="name" :options="models" @change="onModelChange($event)">
-    </v-select>
+      <v-select v-model="modelx" label="name" :options="models" @change="onModelChange($event)"></v-select>
     </div>
     <br>
     <h3 v-if="modelx">Chart:</h3>
-    <ModelLineChart v-if="modelx" v-bind:xValues="xValues" v-bind:yValues="yValues" v-bind:yDiffValues="yDiffValues"/>
+    <ModelLineChart
+      v-if="modelx"
+      v-bind:xValues="xValues"
+      v-bind:yValues="yValues"
+      v-bind:yDiffValues="yDiffValues"
+    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import ModelLineChart from "./ModelLineChart.vue"
+import ModelLineChart from "./ModelLineChart.vue";
 
 export default {
   name: "CarForm",
@@ -33,14 +37,10 @@ export default {
       yDiffValues: []
     };
   },
-  mounted() {
-    console.log("CarForm running mounted");
-  },
   watch: {
     maker: {
       immediate: true,
       handler(val, oldVal) {
-        console.log(`running carform watcher ${val} ${oldVal} ${this.maker}`);
         if (typeof this.maker === "object") {
           // if this parent has been deleted in the v-select component
           if (this.maker === null) {
@@ -78,11 +78,13 @@ export default {
       let firstFound = false;
       for (let i = 0; i < this.cars.length; i++) {
         let model = this.modelx.name;
-        let iModel = Object.values(this.cars[i])[2];
+        if (!this.cars[i].hasOwnProperty("name")) {
+          continue;
+        }
+        let iModel = this.cars[i].name;
         if (model === iModel) {
-          let id= Object.values(this.cars[i])[0];
-          let year = Object.values(this.cars[i])[3];
-          let price = Object.values(this.cars[i])[4] / 100.0;
+          let year = this.cars[i].year;
+          let price = this.cars[i].price / 100.0;
           ixValues.push(year);
           iyValues.push(price);
           if (firstFound) {
@@ -96,7 +98,6 @@ export default {
       }
       this.xValues = ixValues;
       this.yValues = iyValues;
-      console.log(`yDiffValues ${iDiffValues}`);
       this.yDiffValues = iDiffValues;
     }
   }
