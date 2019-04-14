@@ -58,7 +58,9 @@ class CarDetail(APIView):
     def get(self, request, maker_name: str, fipe_id: str) -> Response:
         try:
             maker = Maker.objects.get(name=maker_name)
-            cars = Car.objects.filter(maker=maker.id, fipe_id=fipe_id)
+            cars = Car.objects.filter(maker=maker.id, fipe_id=fipe_id).order_by(
+                *["name", "year"]
+            )
             serializer = CarSerializer(cars, many=True)
             return Response(serializer.data)
         except ObjectDoesNotExist:
@@ -78,7 +80,7 @@ class CarsList(APIView):
                 json.dumps({"detail": str(e)}), status=status.HTTP_400_BAD_REQUEST
             )
         try:
-            cars = Car.objects.filter(maker=maker.id).order_by("name")
+            cars = Car.objects.filter(maker=maker.id).order_by(*["name", "year"])
             if request.query_params.get("unique"):
                 unique_names = {}
                 for car in cars:
