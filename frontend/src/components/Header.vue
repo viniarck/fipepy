@@ -16,5 +16,9 @@ h2 {
   background: #2c3e50;
   color: #ffffff;
   font-size: 32px;
+  height: 100%;
+}
+
+#app {
 }
 </style>

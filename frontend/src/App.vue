@@ -11,6 +11,7 @@ import Header from "./components/Header.vue";
 import MakerForm from "./components/MakerForm.vue";
 import Footer from "./components/Footer.vue";
 import axios from "axios";
+import * as utils from "./utils.js";
 
 export default {
   name: "app",
@@ -26,10 +27,10 @@ export default {
   },
   mounted() {
     axios
-      .get('http://localhost:8000/fipe/v1/makers/?format=json')
+      .get(utils.makersUrl())
       .then(response => (this.makers = response.data))
-      .catch(error => console.log(error));
-  }
+      .catch(error => utils.alertError(utils.makersUrl()));
+  },
 };
 </script>
 

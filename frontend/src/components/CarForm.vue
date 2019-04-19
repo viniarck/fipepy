@@ -18,6 +18,7 @@
 <script>
 import axios from "axios";
 import ModelLineChart from "./ModelLineChart.vue";
+import * as utils from "../utils.js";
 
 export default {
   name: "CarForm",
@@ -49,21 +50,13 @@ export default {
             return;
           }
           axios
-            .get(
-              `http://localhost:8000/fipe/v1/makers/${
-                this.maker.name
-              }/cars/?format=json`
-            )
+            .get(utils.carsUrl(this.maker.name))
             .then(response => (this.cars = response.data))
-            .catch(error => console.log(error));
+            .catch(error => utils.alertError(utils.carsUrl(this.maker.name)));
           axios
-            .get(
-              `http://localhost:8000/fipe/v1/makers/${
-                this.maker.name
-              }/cars/?format=json&unique=true`
-            )
+            .get(utils.carsUrlUnique(this.maker.name))
             .then(response => (this.models = response.data))
-            .catch(error => console.log(error));
+            .catch(error => utils.alertError(utils.carsUrl(this.maker.name)));
         }
       }
     }
